@@ -8,9 +8,23 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator screenOptions={styles.body}>
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="DatesWorked" component={DatesWorked} />
+    <Stack.Navigator
+      screenOptions={{
+        headerBackTitle: 'Emplotess',
+      }}>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="DatesWorked"
+        component={DatesWorked}
+        options={{
+          title: 'Your employee',
+          headerTitleAlign: 'center',
+        }}
+      />
       <Stack.Screen name="EmployeeHistory" component={EmployeeHistory} />
     </Stack.Navigator>
   );
@@ -19,7 +33,5 @@ const StackNavigation = () => {
 export default StackNavigation;
 
 const styles = StyleSheet.create({
-  body: {
-    headerShown: false,
-  },
+  body: {},
 });

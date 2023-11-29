@@ -14,13 +14,13 @@ const EmployeeHistory = ({route}) => {
 
   return (
     <View style={styles.modalStyle}>
-      {Data.filter(element => {
-        return Object.keys(element)[0] === selectedId;
-      }).map(elements => {
-        const values = Object.values(elements)[0];
-        console.log(values);
-        return (
-          <ScrollView>
+      <ScrollView>
+        {Data.filter(element => {
+          return Object.keys(element)[0] === selectedId;
+        }).map(elements => {
+          const values = Object.values(elements)[0];
+          console.log(values);
+          return (
             <View style={styles.container}>
               <View style={styles.containerDates}>
                 <Text style={styles.datesText}>{values['CheckIn'].Date}/ </Text>
@@ -41,16 +41,20 @@ const EmployeeHistory = ({route}) => {
                   style={styles.image}
                   resizeMode="contain"
                 />
-                <Image
-                  source={{uri: values['CheckOut'].ImageUrl}}
-                  style={styles.image}
-                  resizeMode="contain"
-                />
+                {values['CheckOut'] ? (
+                  <Image
+                    source={{uri: values['CheckOut'].ImageUrl}}
+                    style={styles.image}
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <Text style={{color: 'black'}}>no checkout</Text>
+                )}
               </View>
             </View>
-          </ScrollView>
-        );
-      })}
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };
@@ -60,7 +64,7 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   modalStyle: {
-    height: HEIGHT,
+    height: '100%',
     backgroundColor: 'white',
     alignItems: 'center',
   },
@@ -74,10 +78,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: HEIGHT * 0.3,
     width: WIDTH / 1.2,
-    // elevation: 0.6,
-    // // shadowOpacity: 0.1,
     borderRadius: 10,
-    margin: '4%',
+    marginBottom: '5%',
   },
   containerDates: {
     flex: 0.5,
@@ -97,7 +99,6 @@ const styles = StyleSheet.create({
   },
   ImageContainer: {
     flex: 1,
-
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
